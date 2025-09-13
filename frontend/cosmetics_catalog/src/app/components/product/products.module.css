@@ -1,0 +1,48 @@
+.lista{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+.lista li{
+    background-color: rgba(255, 255, 255, 0);
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    height: 350px;
+    border: 1px solid rgb(212, 211, 211);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.lista main{
+    text-align: left;
+}
+
+.lista a{
+    text-decoration: none;
+    color: black;
+}
+.lista h2 {
+    font-size: 15px;
+}
+
+.select{
+  appearance: none;          
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100px;
+  height: 35px;
+  border-radius: 20px;
+  border: 1px solid rgb(212, 211, 211);
+  padding: 5px 10px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+
+
+

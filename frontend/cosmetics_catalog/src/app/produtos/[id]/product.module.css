@@ -1,0 +1,23 @@
+.main{
+    display: flex;
+     flex-direction: row;
+     margin: 10px;
+}
+
+
+.generalslide{
+    height: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.generalslide button{
+    border: 0;
+    background-color: #582b26;
+    border-radius: 25px;
+    padding: 10px;
+    width: 30px;
+    height: 30px;
+    color: white;
+}
