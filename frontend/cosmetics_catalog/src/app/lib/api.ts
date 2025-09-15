@@ -1,14 +1,14 @@
+const RAW = process.env.NEXT_PUBLIC_API
+  ?? "https://cosmetics-catalog.onrender.com/api";
 
-const RAW = process.env.NEXT_PUBLIC_API_URL || "https://cosmetics-catalog.onrender.com/api";
-const BASE = RAW.replace(/\/$/, ""); 
+export const API = RAW.replace(/\/$/, "");
 
-export async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const clean = path.replace(/^\//, ""); 
-  const url = `${BASE}/${clean}`;
-  const res = await fetch(url, {
-    headers: { "Content-Type": "application/json", ...(init?.headers || {}) },
-    ...init,
-  });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} – ${url}`);
+export async function apiJson<T>(path: string, init?: RequestInit): Promise<T> {
+  const url = `${API}${path.startsWith("/") ? "" : "/"}${path}`;
+  const res = await fetch(url, { cache: "no-store", ...init });
+  if (!res.ok) throw new Error(`API ${res.status} ${res.statusText} – ${url}`);
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json"))
+    throw new Error(`Resposta não-JSON (content-type: ${ct}) – ${url}`);
   return res.json() as Promise<T>;
 }
