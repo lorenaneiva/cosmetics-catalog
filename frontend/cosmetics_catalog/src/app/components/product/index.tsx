@@ -1,7 +1,5 @@
-const RAW = process.env.NEXT_PUBLIC_API;
-if (!RAW) {
-  throw new Error("NEXT_PUBLIC_API não definido (verifique as Environment Variables na Vercel).");
-}
+export const dynamic = "force-dynamic"
+const RAW = process.env.NEXT_PUBLIC_API!;
 const API = RAW.replace(/\/$/, "");
 
 import Link from 'next/link'
@@ -21,11 +19,18 @@ export interface ProductProps{
 interface ResponseProps{
     results: ProductProps[]
 }
-
+async function getProducts(): Promise<ResponseProps> {
+  const res = await fetch(`${API}/products/`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) {
+    throw new Error(`Resposta não-JSON da API (content-type: ${ct})`);
+  }
+  return res.json() as Promise<ResponseProps>;
+}
 
 export async function Product(){
-    const res = await fetch (`${API}/products/`)
-    const data: ResponseProps = await res.json()
+     const data = await getProducts();
     return(
         <div>
 
