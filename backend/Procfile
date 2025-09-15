@@ -1,1 +1,1 @@
-web: gunicorn cosmetics_catalog.wsgi:application --preload --workers 2 --timeout 120
+web: gunicorn wsgi:application --chdir cosmetics_catalog --preload --workers 2 --timeout 120
