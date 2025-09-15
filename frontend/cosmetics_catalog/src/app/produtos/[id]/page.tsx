@@ -1,23 +1,22 @@
-
+// src/app/produtos/[id]/page.tsx
 import styles from "./product.module.css";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic"; 
-
-
-type ImageT = { id: number; image: string };
-export interface ProductProps {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    category: string;
-    brand: string;
-    images: ImageT[];
-}
+export const dynamic = "force-dynamic";
 
 const RAW = process.env.NEXT_PUBLIC_API!;
 const API = RAW.replace(/\/$/, "");
+
+type ImageT = { id: number; image: string };
+export interface ProductProps {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  brand: string;
+  images: ImageT[];
+}
 
 async function getProduct(id: string): Promise<ProductProps> {
   const res = await fetch(`${API}/products/${encodeURIComponent(id)}/`, {
@@ -32,9 +31,10 @@ async function getProduct(id: string): Promise<ProductProps> {
   return res.json();
 }
 
-type Props = { params: { id: string } };
-
-export default async function DetailProduct({ params }: Props) {
+// 👇 Tipagem INLINE e síncrona (NADA de genérico <Props>, NADA de PageProps)
+export default async function DetailProduct(
+  { params }: { params: { id: string } }
+) {
   const data = await getProduct(params.id);
 
   return (
@@ -54,17 +54,6 @@ export default async function DetailProduct({ params }: Props) {
           ))}
         </ul>
       )}
-
-      <p style={{ marginTop: 12 }}>
-        Entre em contato:{" "}
-        <a
-          href="https://wa.me/91987615365/?text=Oi!%20Eu%20gostaria%20de%20mais%20informações%20sobre%20um%20produto,%20por%20favor."
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          WhatsApp
-        </a>
-      </p>
     </div>
   );
 }
