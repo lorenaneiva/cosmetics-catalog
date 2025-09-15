@@ -1,4 +1,9 @@
-const API = process.env.NEXT_PUBLIC_API!;
+const RAW = process.env.NEXT_PUBLIC_API;
+if (!RAW) {
+  throw new Error("NEXT_PUBLIC_API não definido (verifique as Environment Variables na Vercel).");
+}
+const API = RAW.replace(/\/$/, "");
+
 import Link from 'next/link'
 import styles from './products.module.css';
 
