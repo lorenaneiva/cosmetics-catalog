@@ -1,4 +1,4 @@
-// src/app/produtos/[id]/page.tsx
+
 import styles from "./product.module.css";
 import { notFound } from "next/navigation";
 
@@ -31,7 +31,7 @@ async function getProduct(id: string): Promise<ProductProps> {
   return res.json();
 }
 
-// 👇 Tipagem INLINE e síncrona (NADA de genérico <Props>, NADA de PageProps)
+
 export default async function DetailProduct(
   { params }: { params: { id: string } }
 ) {
