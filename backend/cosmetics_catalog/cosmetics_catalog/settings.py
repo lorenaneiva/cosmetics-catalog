@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
+from pathlib import Path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b18=6+%-$(5t=86+^f=5^%p8ml(+3a1g07ai!79j-v85d4pqet'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "1") == "1"   # local=1, produção=0
 
-ALLOWED_HOSTS = []
+ON_RENDER = os.getenv("RENDER") == "1"
+
+if ON_RENDER:
+    DEBUG = False
+
+
+ALLOWED_HOSTS = [
+        # host automático do Render (ex.: cosmetics-catalog.onrender.com)
+        os.getenv("RENDER_EXTERNAL_HOSTNAME", ""),
+        # se você for colocar um domínio próprio pro back:
+        "api.byrose.com",
+    ]
 
 
 # Application definition
@@ -44,7 +56,6 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "rest_framework",
     "django_filters",
-
 ]
 
 JAZZMIN_SETTINGS = { 
@@ -116,8 +127,9 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
     'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -125,10 +137,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
-CORS_ALLOWED_ORIGINS = [
-  "http://localhost:3000",
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://byrose.com",
+    "https://www.byrose.com",
+    f"https://{os.getenv('RENDER_EXTERNAL_HOSTNAME', '')}"
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://byrose.com",
+    "https://www.byrose.com",
+]
 ROOT_URLCONF = 'cosmetics_catalog.urls'
 
 TEMPLATES = [
@@ -158,6 +180,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Password validation
@@ -194,9 +218,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
