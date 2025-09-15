@@ -4,19 +4,20 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic"; 
 
-const RAW = process.env.NEXT_PUBLIC_API!;
-const API = RAW.replace(/\/$/, "");
 
 type ImageT = { id: number; image: string };
 export interface ProductProps {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  brand: string;
-  images: ImageT[];
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    category: string;
+    brand: string;
+    images: ImageT[];
 }
+
+const RAW = process.env.NEXT_PUBLIC_API!;
+const API = RAW.replace(/\/$/, "");
 
 async function getProduct(id: string): Promise<ProductProps> {
   const res = await fetch(`${API}/products/${encodeURIComponent(id)}/`, {
