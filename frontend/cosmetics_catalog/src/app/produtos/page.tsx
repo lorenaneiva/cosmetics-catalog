@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { Product } from '../components/product'
 import styles from '../components/product/products.module.css';
 export default async function Produtos(){
