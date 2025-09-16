@@ -4,10 +4,15 @@ import styles from './components/product/products.module.css';
 
 type MySearchParams = { [key: string]: string | string[] | undefined };
 
-type HomeProps = { searchParams?: MySearchParams };
 
-export default async function Page({searchParams}: HomeProps){
-  const raw = searchParams?.search
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: Promise<MySearchParams>;
+}){
+  const sp = (await searchParams) ??{}
+  const raw = sp.search
   const search = Array.isArray(raw) ? raw[0] : raw ?? ""
   return(
 
