@@ -5,36 +5,9 @@
 }
 .div{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-.div div{
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.div nav{
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 .div h1{
     white-space: nowrap;
-}
-
-.links{
-    text-decoration-color: white;
-    text-decoration: none;
-    color: white;
-}
-.list{
-    list-style-type: none;
-}
-.button{
-    border: 0;
-    background-color: #66413D;
-    border-radius: 20px;
-    padding: 10px;
-    width: 100px;
 }
 
 .logo{
