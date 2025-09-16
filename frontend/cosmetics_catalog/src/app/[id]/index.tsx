@@ -2,9 +2,9 @@
 export default async function DetailProducts({
     params
 }:{
-    params: Promise<{id:number}>
+    params: {id:string}
 }){
-    const { id } = await params
+    const id = params
     return(
         
         <h1>TESTE</h1>
