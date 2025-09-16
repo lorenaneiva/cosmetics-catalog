@@ -1,14 +1,12 @@
 export const dynamic = "force-dynamic"; 
-
-
-
 import { Product } from './components/product'
 import styles from './components/product/products.module.css';
-export default async function Page({
-  searchParams,
-}:{
-  searchParams?: {[key:string]:string | string[] | undefined}
-}){
+
+type MySearchParams = { [key: string]: string | string[] | undefined };
+
+type HomeProps = { searchParams?: MySearchParams };
+
+export default async function Page({searchParams}: HomeProps){
   const raw = searchParams?.search
   const search = Array.isArray(raw) ? raw[0] : raw ?? ""
   return(
