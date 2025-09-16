@@ -1,7 +1,7 @@
 """
 Django settings for cosmetics_catalog project.
 """
-
+from decouple import config
 import os
 from pathlib import Path
 
@@ -68,9 +68,9 @@ JAZZMIN_UI_TWEAKS = {
 # =========================
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=os.getenv('CLOUDINARY_CLOUD_NAME')),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=os.getenv('CLOUDINARY_API_KEY')),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=os.getenv('CLOUDINARY_API_SECRET')),
 }
 STORAGES = {
   "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
