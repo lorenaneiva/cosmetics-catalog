@@ -10,5 +10,6 @@ router.register('images', views.ImageViewSet)
 
 
 urlpatterns = [
+    path('', views.mainViewSet),
     path('api/', include(router.urls)) 
 ]

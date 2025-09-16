@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from . import models
 from . import serializers
 from rest_framework import filters
@@ -27,3 +29,5 @@ class ImageViewSet(viewsets.ModelViewSet):
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
 
+def mainViewSet(request):
+     return HttpResponseRedirect(reverse('api-root'))
