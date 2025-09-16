@@ -25,10 +25,10 @@ if ON_RENDER:
 
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
-    ".onrender.com",   # cobre qualquer domínio do Render
-    "api.byrose.com",  # opcional se usar subdomínio próprio
+    "cosmetics-catalog.onrender.com",
+    "byrose.store",
+    "api.byrose.store",
 ]
-
 # =========================
 # Aplicativos
 # =========================
@@ -121,6 +121,7 @@ MIDDLEWARE = [
 CSRF_TRUSTED_ORIGINS = [
     "https://byrose.com",
     "https://www.byrose.com",
+    "https://api.byrose.store",
 ]
 _render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if _render_host:
