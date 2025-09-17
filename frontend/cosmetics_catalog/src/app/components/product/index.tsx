@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./products.module.css";
-
+import {Lato} from "next/font/google";
+const lato = Lato({ subsets: ["latin"], weight: ["400", "700"] });
 const RAW = process.env.NEXT_PUBLIC_API!;
 const API = RAW.replace(/\/$/, "");
 
@@ -32,7 +33,7 @@ export async function Product({search}: {search?:string}) {
   const data = await getProducts({search});
   const totalProducts = data.results.length
   return (
-    <div>
+    <div className={lato.className}>
         <div style={{
           display:'flex',
         }}>

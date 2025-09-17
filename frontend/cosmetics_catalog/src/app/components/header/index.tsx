@@ -6,14 +6,17 @@ export function Header(){
 
     return(
         
-        <header className={styles.header}>
-            <div className={styles.div}>
+    <header className={styles.header}>
+        <div className={styles.div}>
                 <div className={styles.logo}>
-                    <h1><Link href='../' className={styles.links}>
+                    <Link href='../'>
+                    
+
                     <img src="byrose_logo_teste_fff9f9.png" alt="websitelogo" />
-                    </Link></h1>
+                    </Link>
                 </div>
-            <SearchApp/>
+
+            <div className={styles.search}><SearchApp/></div>
             </div>
         </header>
     )
